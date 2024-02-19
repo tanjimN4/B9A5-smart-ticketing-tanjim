@@ -36,9 +36,12 @@ function handleKeyboardButtonPress(event) {
             handleKeyboardButtonPress2(textToAdd);
 
             updateTotalPrice(parseInt(priceText));
+    
+        }
+        
 
-            
-        } else {
+
+         else {
             alert('No more seats available!');
         }
     }
@@ -64,6 +67,9 @@ function updateTotalPrice(price) {
     const currentTotal = parseInt(totalElement.innerText.replace('BDT ', ''));
     const newTotal = currentTotal + price;
     totalElement.innerText = 'BDT ' + newTotal;
+
+    const grandTotalElement = document.getElementById('grandtotal');
+    grandTotalElement.innerText=totalElement.innerText
 }
 
 
@@ -79,6 +85,7 @@ function calculateDiscount() {
         const discountedTotal = currentTotal - discountAmount;
         grandTotalElement.innerText = 'BDT ' + discountedTotal.toFixed(2);
         discountButton.disabled = true;
+        return discountAmount
     }
     if (inputValue === 'Couple20') {
         const currentTotal = parseFloat(totalElement.innerText.replace('BDT ', ''));
@@ -86,16 +93,49 @@ function calculateDiscount() {
         const discountedTotal = currentTotal - discountAmount;
         grandTotalElement.innerText = 'BDT ' + discountedTotal.toFixed(2);
         discountButton.disabled = true;
+        return discountAmount
+        
     }
 
     
      else {
-        grandTotalElement.innerText=totalElement.innerText
+        
+        alert('invalid copun')
     }
 }
 
+document.getElementById('name').addEventListener('input', enableNextButton);
+    document.getElementById('number').addEventListener('input', enableNextButton);
+
+function enableNextButton() {
+    const name = document.getElementById('name').value.trim();
+    const number = document.getElementById('number').value.trim();
+    const nextButton = document.getElementById('next');
+
+    if (name !== '' && number !== '') {
+        nextButton.disabled = false;
+    } else {
+        nextButton.disabled = true;
+    }
+}   
+
+
+
 function lastCode(){
 
+    hideElementById('fistSection')
+    showElementById('secondSection')
 }
 
+
+
+function hideElementById(elementId){
+    const element =document.getElementById(elementId)
+    element.classList.add('hidden')
+}
+
+function showElementById(elementId){
+    const element =document.getElementById(elementId)
+    element.classList.remove('hidden')
+}
 
